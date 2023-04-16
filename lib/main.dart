@@ -2,8 +2,10 @@ import 'package:catcher/catcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:wbc_challenge/app/app_modular.dart';
 
-import 'package:wbc_challenge/core/widget_utils/error_widget.dart';
+import 'package:wbc_challenge/core/utils/widget_utils/error_widget.dart';
 import 'package:wbc_challenge/core/constants/app_constants_utils.dart';
 
 void main() {
@@ -36,7 +38,10 @@ void main() {
     releaseConfig: releaseOptions,
     enableLogger: true,
     runAppFunction: () => runApp(
-      const MyApp(),
+      ModularApp(
+        module: AppModule(),
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -46,12 +51,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'WBC_CHALLENGE',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Placeholder(),
+      routeInformationParser: Modular.routeInformationParser,
+      routerDelegate: Modular.routerDelegate,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
