@@ -13,7 +13,7 @@ class DatabaseHelper {
     4,
     (index) => ReserveEntity(
       id: index,
-      dateReservation: DateTime.now().toString(),
+      dateReservation: DateTime.now(),
       isPaid: false,
       isReserved: false,
       name: 'Churrasqueira $index',
@@ -54,13 +54,24 @@ class DatabaseHelper {
             reserve.name,
             reserve.isPaid,
             reserve.isReserved,
-            reserve.dateReservation,
+            reserve.dateReservation.toString(),
             reserve.price,
           ],
         ),
       );
       log('Database inserted $result');
     });
+  }
+
+  Future<void> updateDatabase({required ReserveEntity reserve}) async {
+    await database
+        ?.update('reservations', reserve.toJson(), where: 'id = ?', whereArgs: [
+      reserve.id ?? 0,
+    ]).then(
+      (value) => log(
+        'Database updated $value',
+      ),
+    );
   }
 
   Future<int> countWhereIsNotReserved() async {
@@ -91,9 +102,11 @@ class DatabaseHelper {
   }
 
   Future<void> _createDatabase({required Database database}) async {
-    database.execute(
+    database
+        .execute(
       'CREATE TABLE reservations (id INTEGER PRIMARY KEY, name TEXT, isPaid BOOL, isReserved BOOL,dateReservation TEXT, price TEXT)',
-    ).then((value) {
+    )
+        .then((value) {
       _initialData.forEach((reserve) async {
         await insertIntoDatabase(reserve: reserve);
       });

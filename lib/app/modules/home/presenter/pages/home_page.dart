@@ -7,6 +7,7 @@ import 'package:wbc_challenge/app/modules/home/presenter/widgets/home_options_co
 import 'package:wbc_challenge/app/modules/home/presenter/widgets/home_reserve_container.dart';
 import 'package:wbc_challenge/core/enums/app_color_enum.dart';
 import 'package:wbc_challenge/core/extentions/build_context_theme_extension.dart';
+import 'package:wbc_challenge/core/utils/widget_utils/base_app_bar.dart';
 import 'package:wbc_challenge/core/utils/widget_utils/build_base_stack.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -18,29 +19,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  @override
-  void dispose() {
-    super.dispose();
-  }
+  final GlobalKey<RefreshIndicatorState> refreshKey =
+      GlobalKey<RefreshIndicatorState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: context.getThemeColor(
-            appColorTheme: AppColorEnum.backgroundBordeaux),
-        title: Center(
-          child: SizedBox(
-            height: 45,
-            child: Image.asset(
-              'assets/launch_icon/WBC logo.jpeg',
-            ),
-          ),
-        ),
+      appBar: BaseAppBar(
+        optionalLeading: SizedBox.shrink(),
       ),
       backgroundColor: context.getThemeColor(),
-      body: _MountBody(
-        controller: controller,
+      body: RefreshIndicator(
+        key: refreshKey,
+        backgroundColor: context.getThemeColor(appColorTheme: AppColorEnum.backgroundBordeaux),
+        color: context.getThemeColor(appColorTheme: AppColorEnum.lightSand),
+        onRefresh: () async => controller.init(),
+        child: _MountBody(
+          controller: controller,
+          refreshKey: refreshKey,
+        ),
       ),
     );
   }
@@ -48,10 +45,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
 class _MountBody extends StatefulWidget {
   final HomeController controller;
+  final GlobalKey<RefreshIndicatorState> refreshKey;
 
   const _MountBody({
     super.key,
     required this.controller,
+    required this.refreshKey,
   });
 
   @override
@@ -71,9 +70,11 @@ class _MountBodyState extends State<_MountBody> {
             ),
             child: MountHomeReserve(controller: widget.controller),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
-            child: HomeOptionsContainer(),
+            child: HomeOptionsContainer(
+              refreshKey: widget.refreshKey,
+            ),
           ),
           const Spacer(),
           Padding(

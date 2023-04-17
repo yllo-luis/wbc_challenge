@@ -5,6 +5,29 @@
     "homeModalTitleAvailable": "Lugares disponíveis",
     "homeModalOptionFind": "Procurar",
     "homeModalOptionReserve": "Reservar",
-    "homeModalOptionDelete": "Deletar",
-    "homeModalWarning": "Aplicativo em testes"
+    "homeModalOptionUpdate": "Atualizar",
+    "homeModalWarning": "Aplicativo em testes",
+    "reservePageWarning": "Parece que este objeto já esta reservado até a data {reserve}!",
+    "@reservePageWarning": {
+        "placeholders": {
+            "reserve": {
+                "type": "String",
+                "example": "21/12/2012"
+            }
+        }
+    },
+    "reserveDialogTitle": "Reserva de objeto {name}",
+    "@reserveDialogTitle": {
+        "placeholders": {
+            "name": {
+                "type": "String",
+                "example": "churrasqueira #1"
+            }
+        }
+    },
+    "reserveDialogHintText": "Insira a data da sua reserva aqui :3",
+    "reserveDialogHintTextPriceFree": "Grátis!",
+    "appCancel": "Cancelar",
+    "appClose": "Fechar",
+    "appFutureFeature": "Essa função será implementada no futuro!"
 }

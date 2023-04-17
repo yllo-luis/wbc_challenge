@@ -3,8 +3,8 @@ class ReserveEntity {
   String? name;
   bool? isPaid;
   bool? isReserved;
-  String? dateReservation;
-  int? price;
+  DateTime? dateReservation;
+  double? price;
 
   ReserveEntity({
     this.id,
@@ -18,19 +18,19 @@ class ReserveEntity {
   ReserveEntity.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    isPaid = json['is_paid'];
-    isReserved = json['is_reserved'];
-    dateReservation = json['date_reservation'];
-    price = json['price'];
+    isPaid = json['isPaid'] == 1;
+    isReserved = json['isReserved'] == 1;
+    dateReservation = DateTime.tryParse(json['dateReservation']);
+    price = double.tryParse(json['price']) ?? 0;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['is_paid'] = this.isPaid;
-    data['is_reserved'] = this.isReserved;
-    data['date_reservation'] = this.dateReservation;
+    data['isPaid'] = this.isPaid == true ? 1 : 0;
+    data['isReserved'] = this.isReserved == true ? 1 : 0;
+    data['dateReservation'] = this.dateReservation.toString();
     data['price'] = this.price;
     return data;
   }

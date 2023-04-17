@@ -7,20 +7,10 @@ class ReserveLocalUseCase {
   ReserveLocalUseCase({required this.databaseHelper});
 
   Future<void> reserveLocal({
-    required String name,
-    required bool isPaid,
-    required bool isReserved,
-    required String dateReservation,
-    required int price,
+    required ReserveEntity reserve,
   }) async {
-    return await databaseHelper.insertIntoDatabase(
-      reserve: ReserveEntity(
-        name: name,
-        isPaid: isPaid,
-        price: price,
-        isReserved: isReserved,
-        dateReservation: dateReservation,
-      ),
+    return await databaseHelper.updateDatabase(
+      reserve: reserve,
     );
   }
 }

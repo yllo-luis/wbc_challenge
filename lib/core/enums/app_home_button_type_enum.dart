@@ -1,5 +1,5 @@
 enum AppHomeButtonTypeEnum {
   search,
   reserve,
-  delete,
+  update,
 }

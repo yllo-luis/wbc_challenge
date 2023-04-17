@@ -33,6 +33,4 @@ class HomeController {
   Future<void> getCurrentReserved() async {
     homeStore.currentReserved.value = await countReserveUseCase.countReservedLocal();
   }
-
-  void dispose() {}
 }

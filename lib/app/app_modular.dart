@@ -21,7 +21,7 @@ class AppModule extends Module {
             module: HomeModule(),
           ),
           ModuleRoute(
-            '/reserve',
+            '/reserve/',
             module: ReserveModule(),
           ),
         ],
