@@ -12,7 +12,7 @@ class BuildBaseStack extends StatelessWidget {
         RotatedBox(
           quarterTurns: 1,
           child: Transform.scale(
-            scale: 1.75,
+            scale: 1.85,
             child: Image.asset(
               'assets/a9acb153c6387b54853328da0c1655cb.png',
               fit: BoxFit.fill,

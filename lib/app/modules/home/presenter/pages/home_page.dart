@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,9 +78,12 @@ class _MountBodyState extends State<_MountBody> {
             ),
           ),
           const Spacer(),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 24.0),
-            child: HomeMountWarning(),
+          Offstage(
+            offstage: !kDebugMode,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 24.0),
+              child: HomeMountWarning(),
+            ),
           )
         ],
       ),
